@@ -1,7 +1,8 @@
 "use client";
 
 import { Button, TextArea, TextField } from "@radix-ui/themes";
-import React from "react";
+import SimpleMDA from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 const NewIssue = () => {
   return (
@@ -9,7 +10,7 @@ const NewIssue = () => {
       <TextField.Root>
         <TextField.Input placeholder="Title"></TextField.Input>
       </TextField.Root>
-      <TextArea placeholder="Description"></TextArea>
+      <SimpleMDA placeholder="Description"></SimpleMDA>
       <Button>Submit New Issue</Button>
     </div>
   );
