@@ -37,7 +37,7 @@ const NewIssue = () => {
 
   const router = useRouter();
 
-  const onSubmit = async (data: IssueForm) => {
+  const onSubmit = handleSubmit(async (data: IssueForm) => {
     setSubmit(true);
     try {
       await axios.post("/api/issues", data);
@@ -47,7 +47,7 @@ const NewIssue = () => {
     } finally {
       setSubmit(false);
     }
-  };
+  });
 
   return (
     <div className="max-w-xl">
@@ -56,7 +56,7 @@ const NewIssue = () => {
           <CalloutText>{error}</CalloutText>
         </CalloutRoot>
       )}
-      <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-3" onSubmit={onSubmit}>
         <TextField.Root>
           <TextField.Input
             placeholder="Title"
