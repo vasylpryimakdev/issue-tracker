@@ -4,6 +4,12 @@ import { issueSchema } from "../../validationSchemas";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/auth/AuthOptions";
 
+export async function GET(request: NextRequest) {
+  const issues = await prisma.issue.findMany();
+
+  return NextResponse.json(issues, { status: 201 });
+}
+
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
 
