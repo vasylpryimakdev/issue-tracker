@@ -5,6 +5,7 @@ import {
   Callout,
   CalloutRoot,
   CalloutText,
+  Text,
   TextField,
 } from "@radix-ui/themes";
 import SimpleMDA from "react-simplemde-editor";
@@ -13,14 +14,21 @@ import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createIssueSchema } from "@/app/validationSchemas";
+import z from "zod";
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssue = () => {
-  const { register, control, handleSubmit } = useForm<IssueForm>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+  });
   const [error, serError] = useState("");
   const router = useRouter();
 
@@ -47,6 +55,7 @@ const NewIssue = () => {
             {...register("title")}
           ></TextField.Input>
         </TextField.Root>
+        {errors.title && <Text color="red">{errors.title.message}</Text>}
         <Controller
           name="description"
           control={control}
@@ -54,6 +63,11 @@ const NewIssue = () => {
             <SimpleMDA placeholder="Description" {...field}></SimpleMDA>
           )}
         />
+        {errors.description && (
+          <Text color="red" as="p">
+            {errors.description.message}
+          </Text>
+        )}
         <Button>Submit New Issue</Button>
       </form>
     </div>
