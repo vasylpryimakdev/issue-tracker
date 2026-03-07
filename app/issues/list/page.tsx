@@ -13,7 +13,7 @@ import React from "react";
 import IssueActions from "./IssueActions";
 import { IssueStatusBadge } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 
 interface Props {
   searchParams: { status: Status; orderBy: keyof Issue; sort: "asc" | "desc" };
@@ -27,7 +27,7 @@ const columns: { label: string; value: keyof Issue; className?: string }[] = [
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const validStatuses = Object.values(Status);
-  const statusToFilter = validStatuses.includes(searchParams.status)
+  const filterByStatus = validStatuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
   const sortBy = ["asc", "desc"].includes(searchParams.sort)
@@ -40,7 +40,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
     : undefined;
 
   const issues = await prisma.issue.findMany({
-    where: { status: statusToFilter },
+    where: { status: filterByStatus },
     orderBy: orderBy,
   });
 
@@ -53,21 +53,31 @@ const IssuesPage = async ({ searchParams }: Props) => {
             {columns.map((column) => (
               <TableColumnHeaderCell
                 key={column.value}
-                className={`${column.className} relative`}
+                className={`${column.className} flex flex-row`}
               >
                 <NextLink
                   href={{
                     query: {
                       ...searchParams,
                       orderBy: column.value,
-                      sort: searchParams.sort === "asc" ? "desc" : "asc",
+                      sort:
+                        searchParams.orderBy === column.value
+                          ? searchParams.sort === "asc"
+                            ? "desc"
+                            : "asc"
+                          : "asc",
                     },
                   }}
                 >
                   {column.label}
                 </NextLink>
                 {column.value === searchParams.orderBy && (
-                  <ArrowUpIcon className="inline absolute self-center" />
+                  <div className="inline">
+                    <ArrowDownIcon className="inline self-center" />
+                    <p className="inline self-center">
+                      {searchParams.sort === "asc" ? "A-Z" : "Z-A"}
+                    </p>
+                  </div>
                 )}
               </TableColumnHeaderCell>
             ))}
