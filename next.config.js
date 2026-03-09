@@ -10,10 +10,15 @@ const nextConfig = {
           { key: 'referrer-policy', value: 'no-referrer' }
         ]
       }
-    ]
+    ];
   },
-  webpack(config) {
+  webpack(config, { isServer }) {
     config.resolve.alias['@'] = path.resolve(__dirname);
+
+    if (isServer) {
+      config.resolve.fallback = { fs: false };
+    }
+
     return config;
   },
 };
