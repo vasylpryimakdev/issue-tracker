@@ -5,7 +5,7 @@ import IssueDetail from "./IssueDetail";
 import EditIssueButton from "./EditIssueButton";
 import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/auth/AuthOptions";
+import { authOptions } from "../../auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
 import { cache } from "react";
 
