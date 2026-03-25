@@ -6,10 +6,7 @@ Game Hub allows users to browse games, filter them by platform and release date,
 
 ---
 
-## 🚀 Live Demo
-
-🔗 **Play the app here:**  
-https://issue-tracker-livid-zeta.vercel.app/
+## 🚀 [Live Demo](https://issue-tracker-livid-zeta.vercel.app/)
 
 ---
 
@@ -25,6 +22,30 @@ https://issue-tracker-livid-zeta.vercel.app/
 - 🔔 Toast notifications
 - 💀 Skeleton loading states
 - 📱 Responsive UI
+
+---
+
+## 📸 Screenshots
+
+### Dashboard
+
+![Dashboard](./public/screenshots/dashboard.png)
+_Displays issue statistics, status chart, and latest tasks._
+
+### Issues List
+
+![Issues List](./public/screenshots/issues-list.png)
+_Page showing all issues, with status filters and pagination._
+
+### Issue Detail
+
+![Issue Detail](./public/screenshots/issue-detail.png)
+_Detailed view of a selected issue, Markdown description, assignee, and status._
+
+### Issue Form
+
+![Issue Form](./public/screenshots/issue-form.png)
+_Form for creating and editing issues with validation and Markdown editor._
 
 ---
 
@@ -55,11 +76,7 @@ https://issue-tracker-livid-zeta.vercel.app/
 ### Backend
 
 - **Next.js API Routes**
-- **Prisma ORM**
-
-### Database
-
-- **PostgreSQL / MySQL**
+- **Prisma ORM (PostgreSQL / MySQL)**
 
 ### Authentication
 
